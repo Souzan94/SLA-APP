@@ -1,0 +1,977 @@
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+  .container {
+  max-width: 80%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 800px;  /* Adjust this value as needed */
+    margin-left: 200px; /* Adjust to accommodate the navbar width */
+    padding: 20px;
+}
+
+.hidden-column {
+  display: none;
+}
+
+
+    h1 {
+      text-align: center;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      background-color: #f5f7fa;
+      border: 1px solid #ccc;
+      border-radius: 10px 10px 0 0;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .tab:hover {
+      background-color: #e0e0e0;
+    }
+
+    .active-tab {
+      background-color: #ffffff;
+      border-bottom: 2px solid #4CAF50;
+      font-weight: bold;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .active-tab-content {
+      display: block;
+    }
+
+ 
+	.week-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;  /* Add some space between the cards */
+  margin-top:10px;
+}
+
+.day-card {
+  flex: 1 1 100px; /* Allow items to grow, shrink, and be at least 100px wide */
+  min-width: 100px; /* Prevent them from getting too small */
+  max-width: 150px; /* Optionally set a max width */
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+
+    .day-card {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    
+
+    .day-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .day-card label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .day-card input[type="time"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+      font-size: 14px;
+    }
+
+
+input[type="time"] {
+  padding-right: 30px;  /* Add space for the custom icon */
+  background: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/svgs/solid/clock.svg') no-repeat right center;
+  background-size: 16px 16px;
+  -webkit-appearance: none;  /* Remove the native time input appearance */
+  appearance: none;
+}
+
+/* Add a custom border and adjust the font */
+input[type="time"] {
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+}
+    .day-card input[type="checkbox"] {
+      margin-top: 3px;
+    }
+
+    /* Holidays styling with blue tones */
+    .holiday {
+      background-color: #BBDEFB; /* Light blue */
+      border: 2px solid #4CAF50; 
+    }
+
+    .holiday label {
+      color: #4CAF50;
+    }
+
+
+
+    
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .holiday-management {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f1f1f1;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	 display: flex;
+     flex-direction: column;
+     gap: 20px;
+    }
+	
+
+
+
+
+    .holiday-management input[type="date"] {
+      padding: 8px;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    .holiday-management button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+
+    .holiday-management button:hover {
+      background-color: #45a049;
+    }
+
+    #holiday-list {
+      margin-top: 15px;
+      list-style-type: none;
+      padding: 0;
+    }
+	
+/* Change the background of the clock icon */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  padding: 3px; /* Increased padding for better touch targets */
+  font-size: 18px;
+  background-color: #d8dcde; /* A more vibrant blue */
+  border-radius: 5px; /* Rounded corners for a softer look */
+  color: white; /* White text for contrast */
+  border: 2px solid #d8dcde
+; /* A border to define the button */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+/* Add hover effect */
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  background-color: #b0b8be; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Add focus effect */
+input[type="time"]:focus::-webkit-calendar-picker-indicator {
+  border-color: #ccc; /* Change border color on focus */
+}
+
+    #holiday-list li {
+      background-color: #ACD1AF; /* A softer blue */
+      color: white;
+      padding: 8px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #holiday-list li .remove-btn {
+      background-color: #fff;
+      color: #4CAF50;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 5px;
+    }
+	
+	remove-btn {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .remove-btn:hover {
+      background-color: #45a049;
+    }
+    .holiday-inputs {
+  display: flex;
+  align-items: flex-end; /* Align items to the bottom */
+  gap: 20px; /* Space between elements */
+    flex-wrap: wrap;
+
+}
+
+
+.holiday-inputs div {
+  display: flex;
+  flex-direction: column;
+}
+
+.holiday-inputs h3 {
+  margin: 0 0 5px 0; /* Reduce margin for headings */
+}
+.holiday-management  button:disabled {
+  background-color: #d8dcde; /* Light grey */
+  color: #5c6970; /* Dark grey text */
+  cursor: not-allowed;
+}
+
+
+
+.holiday-inputs input[type="text"],
+.holiday-inputs input[type="date"] {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#holiday-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#holiday-table th, #holiday-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center; /* Horizontally centers text */
+  vertical-align: middle; /* Vertically centers text */
+}
+
+#holiday-table th {
+  background-color: #f4f4f4;
+}
+ .remove-link {
+      color: #4CAF50;
+      cursor: pointer;
+      text-decoration: none;
+	  font-weight: bold;
+
+    }
+    .remove-link:hover {
+      text-decoration: underline;
+    }
+	
+	
+	/* Container styling */
+.response-time-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+    margin-top:20px;
+
+}
+
+/* Label styling */
+.response-time-container label {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Input field styling */
+.response-time-container input {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Input field focus state */
+.response-time-container input:focus {
+
+  border-color: #4CAF50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.6); /* Optional: Adds a subtle glow effect */
+  outline: none; /* Removes the default outline */
+
+}
+
+/* Remove default number input spinners */
+/* For Chrome, Safari, Edge, Opera */
+.response-time-container input::-webkit-outer-spin-button,
+.response-time-container input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+.response-time-container input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+		
+    .navbar {
+    background-color: #e9ebed; /* Grey background */
+    color: #87929d; /* Black font color */
+    position: fixed;
+    top: 0;
+    left: 0;
+	overflow-x: hidden;
+    height: 100vh; /* Full-screen height */
+    width: 200px; /* Adjust as needed */
+    padding-top: 20px; /* Adjust padding if necessary */
+}
+.navbar a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+        }
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center; /* Center the links */
+}
+
+.navbar ul li {
+    margin-bottom: 20px; /* Add margin between links */
+    position: relative; /* Make the parent element relative for absolute positioning of pseudo-element */
+	  width: 100%; /* Ensure each item takes the full width */
+    text-align: left; /* Align the text to the left */
+	    padding-left: 10px; /* Add a small margin from the left */
+
+}
+
+
+
+.navbar ul li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #666; /* Grey background */
+    z-index: -1; /* Place the pseudo-element behind the link text */
+    opacity: 0; /* Initially hide the pseudo-element */
+	
+}
+
+.navbar ul li:hover::before {
+    opacity: 0.3; /* Show the pseudo-element on hover */
+    height: 180%; /* Increase the height on hover */
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: inherit; /* Inherit parent color */
+    position: relative; /* Make the link text appear above the pseudo-element */
+    z-index: 1; /* Ensure the link text is above the pseudo-element */
+}
+
+.navbar ul li a:hover {
+    color: #49545c; /* Blue hover color */
+}
+
+#sla_Rules {
+   padding: 20px;
+  max-width: 100%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100%;  /* Adjust this value as needed */
+    margin-left: 200px; /* Adjust to accommodate the navbar width */
+}
+.title {
+  font-size: 20px; /* Adjusts the font size */
+  color :#5c6970;
+  margin:20px;
+    float: left; /* Aligns the button to the right */
+
+
+}
+
+#addRule,#addSchedule{
+background-color:#4CAF50;
+  float: right; /* Aligns the button to the right */
+
+}
+#addRule:hover {
+  background-color: #45a049; /* Background color on hover */
+}
+#addSchedule:hover {
+  background-color: #45a049; /* Background color on hover */
+}
+
+#rulePanel input[type="text"]:not(#tagInput),
+#rulePanel input[type="number"],
+#rulePanel textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#rulePanel input[type="text"]:not(#tagInput):focus,
+#rulePanel input[type="number"]:focus,
+#rulePanel textarea:focus,
+#rulePanel textarea:hover
+{
+    border-color: #4CAF50; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Green glow on focus */
+}
+
+
+#ruleForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adjust the value as needed */
+}
+.button-container {
+  display: flex;
+  justify-content: flex-start; /* Aligns buttons to the left */
+  gap: 10px; /* Adjusts spacing between buttons */
+  margin-top: 10px; /* Adds space above the button container */
+  text-align: center;
+  margin-top: 30px;
+}
+#submitbtn,#cancelBtn{
+  background-color:#4CAF50;
+
+}
+#submitbtn:hover,#cancelBtn:hover{
+  background-color: #45a049; /* Background color on hover */
+}
+
+
+.button-container button {
+  background-color: #4CAF50;
+}
+
+
+
+
+.button-container button:hover{
+	
+ background-color: #45a049; 
+	
+}
+#ruleTypes ,#scheduleLs{    
+	  width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #49545c;
+    appearance: none;
+    }
+#ruleTypes::after {
+    content: '▼';
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+}
+
+#scheduleLs::after{
+	content: '▼';
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+	
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: none;
+    text-align: left;
+    padding: 8px;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+#rules{
+  margin-top:5%;
+}
+
+
+	 .table-container {
+      width: 100%;
+	        overflow-x: auto;
+
+    }
+	
+	    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 50px;
+    }
+
+    th, td {
+      border: none;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+	  font-size:12px;
+    }
+
+    tr:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.3s;
+    }
+
+    tr:hover {
+      background-color: #edf7ff;
+    }
+        .page-link {
+            display: inline-block;
+            padding: 10px 15px; 
+            margin: 10px; 
+            background-color: #f2f2f2;
+            text-decoration: none;
+            color: #007bff;
+            transition: background-color 0.3s; /* Add transition for smoother hover effect */
+        }
+
+        .page-link:hover {
+            background-color: #c2c8cc !important; /* Use !important to override existing styles */
+        }
+
+        .selected-page {
+            background-color: #cccccc !important; /* Change to a darker shade of grey */
+            color: #007bff;
+            padding: 12px 17px; /* Increase padding to make the background bigger */
+            margin: 10px; /* Adjust margin for consistency */
+        }
+
+        .paginationContainer {
+            text-align: center;
+            margin-top: 20px; /* Increase margin top */
+        }
+
+        .paginationContainer button {
+            border: none;
+            background: none;
+            padding: 0;
+            margin: 0 10px; /* Increase margin between buttons */
+        }
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    width: 32px; /* Set width */
+    height: 32px; /* Set height */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    border-radius: 50%; /* Make it circular */
+    transition: background-color 0.2s ease;
+    padding: 0; /* Remove padding to keep the circle shape */
+}
+
+/* Hover effect to show light grey circle around the three dots */
+.action-btn:hover {
+    background-color: #e0e0e0; /* Light grey background */
+}
+
+.dropdown-menu {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for subtle elevation */
+    z-index: 100;
+    border-radius: 5px; /* Optional: Rounded corners */
+    display: none; /* Initially hidden */
+	right:5px;
+}
+.dropdown-wrapper {
+  display: inline-block;
+  position: absolute;
+
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 3px;
+  display: none; /* hide by default */
+  background-color: white;
+  border: 1px solid #ccc;
+  min-width: 100px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+    top:20px;
+
+}
+
+
+
+.dropdown-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover effect for dropdown items */
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+.activation-container {
+    max-width: 500px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+}
+
+.app-logo {
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.activation-text {
+    font-size: 16px;
+    color: #49545c;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+
+ .custom-dropdown {
+            width: 100%;
+            position: relative;
+        }
+		
+.dropdown-title {
+            background-color: #fff;
+            padding: 10px;
+            font-size: 14px;
+            color: #49545c;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+.dropdown-content {
+            display: none;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+        }
+		
+.dropdown-group {
+            padding: 10px;
+            font-size: 14px;
+            color: #49545c;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+.dropdown-group-options {
+            display: none;
+            padding-left: 15px;
+            list-style: none;
+            padding-bottom: 5px;
+        }
+
+ .dropdown-group-options li {
+            padding: 4px;
+            cursor: pointer;
+        }
+		
+.caret {   
+            border: solid black;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(45deg);
+            margin-left: 5px;}
+
+.caret.down {
+            transform: rotate(-135deg);
+        }
+		
+.dropdown-group-options li:hover {
+            background-color: #e9ebed;
+        }
+.dropdown-group-options li.disabled {
+    color: #ccc; /* Grey out disabled options */
+    cursor: not-allowed; /* Change cursor to indicate it's disabled */
+}
+
+       .selected-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background-color: #e9ebed;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tag .remove-tag {
+            margin-left: 8px;
+            cursor: pointer;
+            color: #49545c;
+        }
+
+        .tag .remove-tag:hover {
+            color: red;
+        }
+		
+		
+				.submit-button:disabled {
+  background-color: #c2c8cc; /* Grey background to indicate disabled state */
+  color: #87929d; /* Grey text color */
+  cursor: not-allowed; /* Change cursor to indicate it's disabled */
+}
+
+.input-with-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+	  font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;}
+    
+ .input-with-tags:hover {
+    border-color: #4CAF50; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Green glow on focus */
+	
+}
+
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+	
+}
+#tagInput {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    padding: 5px;
+    font-size: 14px;
+}
+
+ #charCount,#label {
+            display: inline; 
+        font-size: smaller;
+        color: #87929d; 
+        }
+		
+		
+/* Removes extra spacing */
+.no-gap label,
+.no-gap textarea,
+.no-gap .char-count-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: fine-tune spacing if needed */
+.char-count-wrapper {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+	
+.available-placeholders {
+            color: #3191ea; 
+            cursor: pointer;
+            text-decoration: none;
+			margin-top : 20px;
+        }
+
+.available-placeholders:hover {
+            text-decoration: underline; 
+        }
+		
+.placeholder-dropdown {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 1000; /* Keep it on top */
+ width: 100%; /* Full width */
+    max-height: 200px; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    z-index: 100; /* Make sure it appears above other elements */
+}
+
+.placeholder-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.placeholder-dropdown li {
+    padding: 10px;
+    cursor: pointer;
+    color: #49545c;
+}
+
+.placeholder-dropdown li:hover {
+    background-color: #e9ebed; /* Highlight on hover */
+}		
+.copy-button {
+    display: none;
+    font-size: 12px;
+    padding: 2px 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #3191ea;
+    border-radius: 3px;
+    width: 60px;  /* Fixed width */
+    height: 24px;  /* Fixed height */
+    text-align: center;  /* Center the text inside the button */
+    line-height: 20px;  /* Vertically align the text */
+    margin-left: auto;  /* Push the button to the right */
+    margin-top:5px;
+    color:#3191ea;
+}
+
+.copy-button:hover{
+  
+      background-color: #3191ea;
+color:white;
+  
+}
+/* Show the button when hovering over the li */
+li:hover .copy-button {
+    display: inline-block;
+}
+
+.placeholder-dropdown li {
+    padding: 8px;
+    cursor: pointer;
+    display: flex;  /* Align text and button in one row */
+    justify-content: space-between;  /* Ensures the text stays on the left and button moves to the right */
+    align-items: center;  /* Vertically center the content */
+}
+.schedule-name-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  width: 50%;
+}
+
+.schedule-name-container label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+}
+
+.schedule-name-container input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.schedule-name-container input:focus {
+   border-color: #4CAF50; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Green glow on focus */
+}
+ .hint-message {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+    display: none; /* Hidden by default */
+  }

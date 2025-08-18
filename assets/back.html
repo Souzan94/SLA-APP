@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Your CSS links -->
+</head>
+<body>
+   <section data-main>Loading...</section>
+
+  <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+  <script>
+    var client = ZAFClient.init();
+ var domain, role, currentUser ;
+
+		
+
+		
+ 
+client.on("app.registered", function (data) {
+   var navBarClientPromise =  client.get('instances').then(function(instancesData) {
+        var instances = instancesData.instances;
+		  for (var instanceGuid in instances) {
+                        if (instances[instanceGuid].location === 'nav_bar') {
+                                 return client.instance(instanceGuid);  }
+                    }
+					  });
+					  
+        client.context().then(function(context) {
+            domain = context.account.subdomain;
+            client.get('currentUser').then(function(data) {
+                currentUser = data.currentUser.id;
+                role = data.currentUser.role;
+                  if (role !== "admin") {
+                 navBarClientPromise.then(function(navBarClient) {
+				     navBarClient.invoke('hide');
+				 });
+                
+				}
+          
+        });
+    });
+	
+});
+
+    client.on("api_notification.sla_warning", function(data) {
+     var msg = data.body.message;
+    client.invoke('notify', msg, 'notice', {
+    duration: 10000});
+    });
+	
+	  
+	 client.on("api_notification.sla_Breached", function(data) {
+            var msg = data.body.message;
+		    client.invoke('notify', msg, 'notice', {
+            duration: 10000 });
+    });
+	
+
+  </script>
+</body>
+</html>

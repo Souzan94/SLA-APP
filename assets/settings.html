@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-bedrock,npm/@zendeskgarden/css-grid,npm/@zendeskgarden/css-buttons,npm/@zendeskgarden/css-forms,npm/@zendeskgarden/css-utilities" rel="stylesheet">
+    <link href="css/settings.css" rel="stylesheet" />
+
+</head>
+<body>
+<div class="activation-container" id="activationDiv" style="display: none;">
+    <img src="https://omni-wise-bucket-4dev.s3.us-east-1.amazonaws.com/pics/logo-small.png" 
+         alt="App Logo" class="app-logo">
+    <p class="activation-text">
+     This feature requires authorization to securely access your Zendesk data via our server-side API. Please authorize to continue..
+    </p>
+    <button class="c-btn c-btn--sm c-btn--primary" id="activate">Activate</button>
+</div>
+
+
+<div class="navbar" style="display: none;"  >
+    <ul>
+		<li id="schedule"><a href="#" >Manage Schedule</a></li>
+		<li id="slaRules"><a href="#" >SLA Rules</a></li>
+    </ul>
+	</div>
+	
+	
+  <div class="container" id = "scheduleContainer" style="display: none;">
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active-tab" data-tab="schedules" onclick="switchTab('schedules')">Schedules</div>
+      <div class="tab" data-tab="holidays" onclick="switchTab('holidays')">Manage Holidays</div>
+    </div>
+<div id="schedules" class="tab-content active-tab-content" >
+<div id="schedulesForm"  style="display:none;">
+<button class="c-btn c-btn--primary"  id="addSchedule">add Schedule</button>
+		   <div class="table-container">
+      <div id="schedulesList"></div>
+    </div>
+	</div>
+    <!-- Business Hours Tab Content -->
+    <div id="business-hours"  style="display:none;">
+	
+	  <div class="schedule-name-container">
+      <label for="schedule-name">Schedule Name</label>
+       <input type="text" id="schedule-name" placeholder="e.g Support Team Hours">
+        </div>
+	
+      <div class="week-container">
+        <!-- Monday -->
+        <div class="day-card" id="monday">
+          <label for="monday-open">Monday</label>
+          
+          <input type="time" id="Mon-open" />
+          <input type="time" id="Mon-close" />
+          <input type="checkbox" id="Mon-toggle" onchange="toggleDay('Mon')" /> Closed
+        </div>
+
+        <!-- Tuesday -->
+        <div class="day-card" id="tuesday">
+          <label for="tuesday-open">Tuesday</label>
+          <input type="time" id="Tue-open" />
+          <input type="time" id="Tue-close" />
+          <input type="checkbox" id="Tue-toggle" onchange="toggleDay('Tue')" /> Closed
+        </div>
+
+        <!-- Wednesday -->
+        <div class="day-card" id="wednesday">
+          <label for="wednesday-open">Wednesday</label>
+          <input type="time" id="Wed-open" />
+          <input type="time" id="Wed-close" />
+          <input type="checkbox" id="Wed-toggle" onchange="toggleDay('Wed')" /> Closed
+        </div>
+
+        <!-- Thursday -->
+        <div class="day-card" id="thursday">
+          <label for="thursday-open">Thursday</label>
+          <input type="time" id="Thu-open" />
+          <input type="time" id="Thu-close" />
+          <input type="checkbox" id="Thu-toggle" onchange="toggleDay('Thu')" /> Closed
+        </div>
+
+        <!-- Friday -->
+        <div class="day-card" id="friday">
+          <label for="friday-open">Friday</label>
+          <input type="time" id="Fri-open" />
+          <input type="time" id="Fri-close" />
+          <input type="checkbox" id="Fri-toggle" onchange="toggleDay('Fri')" /> Closed
+        </div>
+
+        <!-- Saturday -->
+        <div class="day-card" id="saturday">
+          <label for="saturday-open">Saturday</label>
+          <input type="time" id="Sat-open" />
+          <input type="time" id="Sat-close" />
+          <input type="checkbox" id="Sat-toggle" onchange="toggleDay('Sat')" /> Closed
+        </div>
+
+        <!-- Sunday -->
+        <div class="day-card" id="sunday">
+          <label for="sunday-open">Sunday</label>
+          <input type="time" id="Sun-open" />
+          <input type="time" id="Sun-close" />
+          <input type="checkbox" id="Sun-toggle" onchange="toggleDay('Sun')" /> Closed
+        </div>
+      </div>
+
+
+
+      <div class="button-container">
+        <button class="c-btn c-btn--primary" id ="saveHoursBtn">Save Business Hours</button>
+		  <button class="c-btn  c-btn--primary" type="button" id="cancel_Btn">Cancel</button>
+
+      </div>
+    </div>
+</div>
+
+    <!-- Manage Holidays Tab Content -->
+    <div id="holidays" class="tab-content">
+     <!-- Inside the holiday-management div, replace the existing list with a table -->
+<div class="holiday-management">
+  <div class="holiday-inputs">
+    <div>
+      <h3>Holiday Name</h3>
+      <input type="text" id="holiday-name" placeholder="Holiday Name" />
+    </div>
+    <div>
+      <h3>Start Date</h3>
+      <input type="date" id="start-date" />
+    </div>
+    <div>
+      <h3>End Date</h3>
+      <input type="date" id="end-date" />
+    </div>
+    <button id="add-holiday-btn" class="disabled-btn" onclick="addHoliday()" disabled>Add Holiday</button>
+  </div>
+  <!-- Table to display holidays -->
+ 
+</div>
+ <table id="holiday-table" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th style="padding: 8px; border: 1px solid #ddd;">Holiday Name</th>
+        <th style="padding: 8px; border: 1px solid #ddd;">Start Date</th>
+        <th style="padding: 8px; border: 1px solid #ddd;">End Date</th>
+        <th style="padding: 8px; border: 1px solid #ddd;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Holiday entries will be added here dynamically -->
+    </tbody>
+  </table>
+
+    </div>
+
+    <div class="error" id="error-message"></div>
+  </div>
+	<div id = "sla_Rules" style="display: none;" >
+	
+<div id ="mainPanel">
+<div id="rulesList">
+ <h1 class="title">Create SLA Rule</h1>
+
+<button class="c-btn c-btn--primary"  id="addRule">add Rule</button>
+			   <div class="table-container">
+      <div id="rules"></div>
+    </div>
+	</div>
+	 <div class="col" style="display: none;" id ="rulePanel">
+			        <form id="ruleForm">
+	 <h1 class="title">Add New SLA Rule</h1>
+
+			   <div class="c-txt u-mb-sm">
+  <label class="c-txt__label" for="name">SLA Rule Name</label>
+<input type="text" class="c-txt__input" id="info1"  placeholder="SLA Rule Name" >
+
+        </div>
+	  <div class="c-txt u-mb-sm">
+  <label class="c-txt__label" for="name">SLA Rule Description</label>
+<input type="text" class="c-txt__input" id="info2"  placeholder="Description" >
+
+        </div>
+	
+		
+		 <div class="c-txt u-mb-sm" id="ruleType" >
+  <label class="c-txt__label" for="ruleTypes">Rule Type</label>
+
+ <select class="c-txt__input c-txt__input--select" id="ruleTypes" >
+    <option value="" disabled selected>....</option>
+    <option  value="calendar">Calendar</option>
+	    <option  value="businessHours">Business Hours</option>
+
+  </select>
+    </div>
+	
+  <div class="c-txt u-mb-sm" id="scheduleName" >
+  <label class="c-txt__label" for="scheduleLs">Select Schedule</label>
+
+ <select class="c-txt__input c-txt__input--select" id="scheduleLs" >
+ <option value="0" disabled selected>....</option>
+  
+  </select>
+    </div>
+	
+ <div class="c-txt u-mb-sm" id="trt" >
+    <label class="c-txt__label" for="response-time">Total Resolution Time</label>
+  <input type="number" id="response-time" name="response-time" min="0" />
+</div>
+	
+	<div class="c-txt u-mb-sm" id="wt" >
+    <label class="c-txt__label" for="warning-time">SLA Warning Time</label>
+  <input type="number" id="warning-time" name="warning-time" min="0" />
+</div>
+	
+	
+			 <div class="c-txt u-mb-sm" id="tags" >
+
+	<label class="c-txt__label" for="tagInput">Ticket Tags on SLA Breach</label>
+
+    <div class="input-with-tags">
+        <div id="tagsContainer" class="tags-container"></div> <!-- Tags will appear here -->
+        <input  class="c-txt__input"  type="text" id="tagInput" />
+
+    </div>
+	    <div class="hint-message" id="hintMessage">Press Enter or Space after inserting the tag</div>
+
+	    </div>
+
+	
+			 <div class="c-txt u-mb-sm" id="recipients" >
+
+	     <label class="c-txt__label" for="dropdownTitle">Users to Alert on SLA Breach</label>
+        <div class="custom-dropdown">
+            <div class="dropdown-title" id="dropdownTitle" onclick="toggleDropdown('dropdownContent')">Select Recipients 
+                <span class="caret"></span>
+            </div>
+            <div class="dropdown-content" id="dropdownContent">
+                <div class="dropdown-group" onclick="toggleGroup(1)">
+                    Groups <span class="caret "></span>
+                </div>
+                <ul class="dropdown-group-options" id="group1Options"></ul>
+
+                <div class="dropdown-group" onclick="toggleGroup(2)">
+                    Users <span class="caret "></span>
+
+                </div>
+                <ul class="dropdown-group-options" id="group2Options"></ul>
+				
+			   <div class="dropdown-group" onclick="toggleGroup(3)">
+                    Placeholders <span class="caret "></span>
+
+                </div>
+				               <ul class="dropdown-group-options" id="group3Options">
+    <li data-value="requester" onclick="selectOption(this, '{Requester}','placeHolder')">{Requester}</li>
+    <li data-value="assignee" onclick="selectOption(this, '{Assignee}','placeHolder')">{Assignee}</li>
+    <li data-value="current_user" onclick="selectOption(this, '{Current User}','placeHolder')">{Current User}</li>
+</ul>
+
+
+            </div>
+        </div>
+		
+		 <div class="selected-tags" id="selectedTags"></div>
+        </div>
+ <label class="c-txt__label" for="subject">Email Subject On SLA Breach</label>
+        <input class="c-txt__input" id="subject" placeholder="Subject" type="text">
+ <div class="c-txt u-mb-sm no-gap">
+  <label class="c-txt__label" for="txt-2">Email Body On SLA Breach</label>
+  <textarea class="c-txt__input" id="txt-2" placeholder="Email Body" style="height:100px;"></textarea>
+  <div class="char-count-wrapper">
+    <span id="label">Characters remaining:</span>
+    <span id="charCount">300</span>
+  </div>
+  
+ <span class="available-placeholders" id="available-placeholders">View Available Placeholders</span>
+
+        <div class="placeholder-dropdown" id="placeholderDropdown" style="display: none;">
+    <ul>
+       
+    </ul>
+</div>
+</div>
+
+
+	<div class="button-container">
+  <button class="c-btn c-btn--sm c-btn--primary submit-button" type="submit" id="submitbtn" disabled>Submit</button>
+  <button class="c-btn c-btn--sm c-btn--primary" type="button" id="cancelBtn">Cancel</button>
+</div>
+
+	
+	 </form>
+
+
+	</div>
+
+	</div>
+    <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+<script type="text/javascript" src="settings.js"></script>
+</body>
+</html>
